@@ -3,13 +3,6 @@
 console.log("Let's roll some dice, baby!");
 console.log("---------------------------");
 
-// Function to "roll" a die:
-// Generates a random number between 1 and 6:
-const Roll = (min, max) => {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-};
 
 const convertDieIntToString = (dieValue) => {
     let dieString = "";
@@ -38,12 +31,34 @@ const convertDieIntToString = (dieValue) => {
     return dieString;
 };
 
-for (let i = 0; i < 10; i++) {
-    let die1 = Roll(1, 6);
-    let die2 = Roll(1, 6);
+const makeDieObj = (result) => {
+    const dieObj = {
+        dieValue: result,
+        resultValue: convertDieIntToString(result)
+    }
 
-    let message = `${die1.toString()} + ${die2.toString()} == ${die1 + die2}`;
-    if (die1 === die2) {
+    return dieObj;
+}
+
+// Function to "roll" a die:
+// Generates a random number between 1 and 6:
+// const Roll = (min, max) => {
+//     min = Math.ceil(min);
+//     max = Math.floor(max);
+//     return Math.floor(Math.random() * (max - min + 1)) + min;
+// };
+const Roll = () => {
+    const result = Math.floor(Math.random() * 6) + 1;
+    const dieObject = makeDieObj(result);
+    return dieObject;
+};
+
+for (let i = 0; i < 10; i++) {
+    let die1 = Roll();
+    let die2 = Roll();
+
+    let message = `${die1.resultValue} + ${die2.resultValue} == ${die1.dieValue + die2.dieValue}`;
+    if (die1.dieValue === die2.dieValue) {
         message += " DOUBLES!";
     } else {
         console.log(message);
